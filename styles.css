@@ -1,0 +1,194 @@
+:root {
+  /* Fond papier ivoire chaud */
+  --bg: #f6f1e4;
+
+  /* Cartes / documents */
+  --card: #fbf7ec;
+
+  /* Texte principal (AAA sur fond clair) */
+  --text: #2f361c;
+
+  /* Texte secondaire (AA pour texte normal) */
+  --muted: #5f673f;
+
+  /* Accent olive-jaune */
+  --primary: #9ea64a;
+
+  /* Bordures chaudes et discrètes */
+  --border: #d2cfb6;
+
+  /* Ombre douce */
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+  /* Arrondis sobres */
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  max-width: 520px;
+}
+
+.screen--active {
+  display: block;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.center {
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+}
+
+p {
+  line-height: 1.45;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.label {
+  display: block;
+  margin: 14px 0 6px;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--primary);
+  border-color: transparent;
+}
+
+.message {
+  min-height: 1.2em;
+  margin: 10px 0 0;
+}
+
+/* Ancien placeholder "LOGO" (si tu ne l'utilises plus, tu peux supprimer ce bloc) */
+.logo {
+  width: 100%;
+  height: 88px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+/* Textes multi-lignes */
+#endingText,
+#preScoreText,
+#postScoreText,
+#modalText {
+  white-space: pre-line;
+}
+
+/* ===== Modal ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.modal--open {
+  display: block;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.modal__card {
+  position: relative;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  margin: 18vh auto 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Splash plein écran ===== */
+.splash-screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.splash-logo {
+  width: 100%;
+  max-width: 900px; /* ajuste si besoin */
+  height: auto;
+  display: block;
+}
+
+.splash-text {
+  font-size: 0.95rem;
+}
+
+
+[hidden] {
+  display: none !important;
+}

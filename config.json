@@ -1,0 +1,132 @@
+{
+  "validPrefixes": ["VDLB"],
+ 
+  "texts": {
+    "instructions": "Vous taperez vos réponses sur cette page.",
+    "errorInvalidCode": "Code invalide.",
+    "successCode": "Code validé. Bienvenue !",
+    "appTitle": "Jeu d'enquête",
+    "codeTitle": "Saisissez votre code",
+    "codeSubtitle": " Il est écrit sur l'enveloppe, sous le QR code ",
+    "instructionsTitle": "Ouvrez la première enveloppe\u202F!",
+
+    "scoreTitle": "Score final", 
+   "scoreTimeLabel": "Temps total :",
+    "scoreErrorsLabel": "Erreurs :",
+    "scoreHintsLabel": "Indices utilisés :",
+    "endingTitle": "Conclusion",
+    "endingNext": "Suivant",
+    "endingFinish": "Terminer",
+    "modalSuccessTitle": "Bonne réponse !",
+"modalSuccessButton": "Continuer",
+"modalErrorTitle": "Mauvaise réponse",
+"modalErrorButton": "Réessayer",
+"successTitle": "Titre spécifique",
+"successButton": "Texte bouton spécifique"
+
+
+
+
+  },
+ 
+  "riddles": [
+    {
+      "id": 1,
+      "type": "single",
+      "title": "Enveloppe 1",
+      "question": "Carla s'est-elle intoxiquée seule et par accident\u202F?",
+      "options": ["Cela semble un simple accident", "Il semble que quelqu'un l'ait droguée", "Aucun indice de l'un ou de l'autre"],
+      "correct": "Il semble que quelqu'un l'ait droguée",
+      "successText": "Bravo ! Ouvrez la deuxième enveloppe et essayez de répondre sans utiliser les indices.",
+      "errorText": "Ce n’est pas la bonne réponse."
+    },
+
+    {
+  "id": 2,
+  "type": "multiple_with_hints",
+  "title": "Enveloppe 2",
+  "intro": "Répondez aux 3 questions pour faire avancer l'enquête.",
+  "successText": "Bravo ! Vous pouvez ouvrir la troisième enveloppe.",
+  "errorText": "Vous n’avez pas tout bon.",
+  "questions": [
+    {
+      "label": "Qui a menti sur son métier\u202F?",
+      "options": ["Chloé Millen", "Hakim Nasr", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
+      "correct": "Hakim Nasr",
+      "hint": "Le document fait lors du premier séminaire vous aidera"
+    },
+    {
+      "label": "Qui a menti sur son emploi du temps\u202F?",
+      "options": ["Chloé Millen", "Hakim Nasr", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
+      "correct": "Jeanne Boudy",
+      "hint": "Vérifiez tous les QR code de l'enveloppe 2"
+    },
+    {
+      "label": "Qui a menti sur sa relation avec Carla\u202F?",
+      "options": ["Chloé Millen", "Hakim Nasr", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
+      "correct": "Matheo Vompere",
+      "hint": "Regardez les messages échangés"
+    }
+  ]
+},
+
+{
+  "id": 3,
+  "type": "multiple",
+  "title": "Enveloppe 3, question 1/3",
+  "intro": "Décryptez les notes de Hakim Nasr pour comprendre qui est qui",
+  "successText": "Bravo ! vous avancez à grands pas.",
+  "errorText": "Il manque des bonnes réponses.",
+  "questions": [
+    { "label": "Qui est A ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Pierre Abad" },
+    { "label": "Qui est B ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Nicolas Derto" },
+    { "label": "Qui est C ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Jeanne Boudy" },
+    { "label": "Qui est D ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Matheo Vompere" },
+    { "label": "Qui est E ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Chloé Millen" },
+    { "label": "Qui est F ?", "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"], "correct": "Carla Darroise" }
+  ]
+},
+
+
+{
+  "id": 4,
+  "type": "single",
+  "title": "Enveloppe 3, question 2/3",
+  "question": "Qui a passé la nuit avec Jeanne Boudy à l'Espérance hotel\u202F?",
+  "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
+  "correct": "Chloé Millen",
+  "successText": "Bravo ! l'enquête est sur le point d'être résolue ",
+  "errorText": "Ce n’est pas la bonne réponse."
+},
+
+
+{
+  "id": 5,
+  "type": "single",
+  "title": "Qui a empoisonné Carla\u202F?",
+  "question": "Vous pouvez maintenant reconstituer l'emploi du temps de tout le monde et découvrir qui a empoisonné Carla.",
+  "options": ["Chloé Millen", "Hakim Nasr", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
+  "correct": "Pierre Abad",
+  "successText": "Bravo !!! Découvrez les derniers éléments de l'enquête obtenus garce à votre travail",
+  "errorText": "Ce n’est pas la bonne réponse."
+}
+
+  ],
+  
+
+  "preScorePage": {
+    "title": "Bravo !!!",
+    "text": "Grace à vous Pierre Abad a pu être arrêté.\n\nSuite à de mauvais investissements, il avait contracté une dette auprès  d’un mafieux. Dans l’impossibilité de rembourser, sous la menace, il a  accepté de voler des données auprès de ses clients pour la mafia.\n\nPierre Abad a tenté en vain de séduire Carla, puis a choisi d’utiliser  des somnifères, sans savoir que cela ferait un cocktail dangereux du  fait du traitement de la victime.\n\nAprès avoir bu et mangé chez Dodo, il a couru jusqu'au Clos Bourgignon. Il a utilisé le badge qu'il avait subtilisé à Carla pour rentrer dans sa  chambre et voler les données. Il est ensuite allé au Molky pour avoir un alibi.",
+    "button": "Voir mon score"
+  },
+  "postScorePage": {
+    "title": "",
+    "text": "Cet incident et l'enquête dans laquelle vous avez excellé sont de la fiction.\n\nMais la Vallée de la Batterie, les 17 000 emplois, les entreprises et métiers décrits sont une réalité en Hauts-de-France\u202F!",
+    "button": "Découvrir la Vallée de la Batterie",
+    "redirectUrl": "https://www.valleedelabatterie.fr/"
+  }
+  
+
+
+
+}
