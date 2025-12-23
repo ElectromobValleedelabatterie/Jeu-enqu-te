@@ -11,6 +11,7 @@ function logToSheet(eventName, data = {}) {
   if (!LOGGER_URL || LOGGER_URL.includes("COLLE_ICI")) return;
 
   const payload = JSON.stringify({
+   const LOGGER_TOKEN = "Electro'Mob-secret";
     eventName,
     ts: Date.now(),
     ...data,
@@ -803,4 +804,5 @@ setTimeout(() => {
     typeof window.umami === "function";
   console.log("Umami chargé ?", ok, window.umami);
 }, 1500);
+
 
