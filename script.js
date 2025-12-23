@@ -1,5 +1,30 @@
 let CONFIG = null;
 
+/** ===========================
+ *  Google Sheets Logger (Apps Script)
+ *  =========================== */
+const LOGGER_URL = "https://script.google.com/macros/s/AKfycbye8iOYeb_OpNcZDXbbnViMcvArDl1kEr74MfZXarflSf2U4bcR6ltNYmq1zhl-vJphaw/exec"; // ex: https://script.google.com/macros/s/XXXX/exec
+const LOGGER_ENABLED = true;
+
+function logToSheet(eventName, data = {}) {
+  if (!LOGGER_ENABLED) return;
+  if (!LOGGER_URL || LOGGER_URL.includes("COLLE_ICI")) return;
+
+  const payload = {
+    eventName,
+    ts: Date.now(),
+    ...data,
+  };
+
+  // Fire-and-forget : on n'attend pas la réponse
+  fetch(LOGGER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+    keepalive: true, // utile quand on quitte la page (ex: redirection)
+  }).catch(() => {});
+}
+
 // ===== User code & time helpers =====
 function getUserCode() {
   return localStorage.getItem("userCode") || "";
@@ -81,6 +106,9 @@ function closeModal() {
 
 // ===== Analytics (Umami + fallback) =====
 function track(eventName, data = {}) {
+  // 1) Logger Google Sheet (mêmes données que Umami)
+  logToSheet(eventName, data);
+
   try {
     // API fréquente : umami.track(...)
     if (window.umami && typeof window.umami.track === "function") {
@@ -269,8 +297,8 @@ function showPostScore() {
     btn.onclick = () => {
       const url = data.redirectUrl;
       if (!url) return;
-    
-      // 1) On track le clic
+
+      // 1) On track le clic (Umami + Google Sheet)
       track(
         "outbound_click",
         baseTrackData({
@@ -278,13 +306,12 @@ function showPostScore() {
           url,
         })
       );
-    
+
       // 2) Puis on redirige (petit délai pour laisser partir la requête)
       setTimeout(() => {
         window.location.href = url;
-      }, 200);
+      }, 250);
     };
-    
   }
 }
 
