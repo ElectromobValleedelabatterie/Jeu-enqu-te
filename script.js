@@ -5,26 +5,28 @@ let CONFIG = null;
  *  =========================== */
 const LOGGER_URL = "https://script.google.com/macros/s/AKfycbye8iOYeb_OpNcZDXbbnViMcvArDl1kEr74MfZXarflSf2U4bcR6ltNYmq1zhl-vJphaw/exec"; // ex: https://script.google.com/macros/s/XXXX/exec
 const LOGGER_ENABLED = true;
+const LOGGER_TOKEN = "Electro'Mob-secret";
+
 
 function logToSheet(eventName, data = {}) {
   if (!LOGGER_ENABLED) return;
   if (!LOGGER_URL || LOGGER_URL.includes("COLLE_ICI")) return;
 
   const payload = JSON.stringify({
-   const LOGGER_TOKEN = "Electro'Mob-secret";
+    token: LOGGER_TOKEN,   // ✅ ICI
     eventName,
     ts: Date.now(),
     ...data,
   });
 
-  // Version compatible Apps Script (PAS de preflight)
   fetch(LOGGER_URL, {
     method: "POST",
     mode: "no-cors",
-    body: payload, // PAS de headers
+    body: payload,
     keepalive: true,
   }).catch(() => {});
 }
+
 
 
 // ===== User code & time helpers =====
@@ -804,5 +806,6 @@ setTimeout(() => {
     typeof window.umami === "function";
   console.log("Umami chargé ?", ok, window.umami);
 }, 1500);
+
 
 
