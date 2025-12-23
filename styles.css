@@ -216,4 +216,26 @@ body {
   margin: 0 auto;
 }
 
+/* ===== Fix mobile: dropdown/select qui se fait couper ===== */
+.screen,
+.box,
+.card,
+.container {
+  overflow: visible !important;
+}
+
+/* si tu as un wrapper global */
+main,
+#app,
+#root {
+  overflow: visible !important;
+}
+
+/* petit plus : s'assurer que le select passe au-dessus */
+select,
+.input {
+  position: relative;
+  z-index: 10;
+}
+
 
