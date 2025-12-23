@@ -10,20 +10,21 @@ function logToSheet(eventName, data = {}) {
   if (!LOGGER_ENABLED) return;
   if (!LOGGER_URL || LOGGER_URL.includes("COLLE_ICI")) return;
 
-  const payload = {
+  const payload = JSON.stringify({
     eventName,
     ts: Date.now(),
     ...data,
-  };
+  });
 
-  // Fire-and-forget : on n'attend pas la réponse
+  // Version compatible Apps Script (PAS de preflight)
   fetch(LOGGER_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-    keepalive: true, // utile quand on quitte la page (ex: redirection)
+    mode: "no-cors",
+    body: payload, // PAS de headers
+    keepalive: true,
   }).catch(() => {});
 }
+
 
 // ===== User code & time helpers =====
 function getUserCode() {
@@ -802,3 +803,4 @@ setTimeout(() => {
     typeof window.umami === "function";
   console.log("Umami chargé ?", ok, window.umami);
 }, 1500);
+
