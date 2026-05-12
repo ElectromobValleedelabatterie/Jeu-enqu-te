@@ -1,39 +1,82 @@
 :root {
-  /* Fond papier ivoire chaud */
-  --bg: #f6f1e4;
+  /* ===== Univers graphique : maison brumeuse / enquête élégante ===== */
+
+  /* Fond général : gris bleuté clair, doux et lisible */
+  --bg: #d8e0df;
+
+  /* Fond secondaire avec légère chaleur crème */
+  --bg-soft: #eef0eb;
 
   /* Cartes / documents */
-  --card: #fbf7ec;
+  --card: #f7f6ef;
 
-  /* Texte principal (AAA sur fond clair) */
-  --text: #2f361c;
+  /* Cartes légèrement bleutées pour varier les surfaces */
+  --card-cool: #edf3f3;
 
-  /* Texte secondaire (AA pour texte normal) */
-  --muted: #5f673f;
+  /* Texte principal : presque noir bleuté, très lisible */
+  --text: #171b1d;
 
-  /* Accent olive-jaune */
-  --primary: #9ea64a;
+  /* Texte secondaire : gris ardoise accessible */
+  --muted: #4f5b5f;
 
-  /* Bordures chaudes et discrètes */
-  --border: #d2cfb6;
+  /* Accent principal : bleu porte/toit, désaturé */
+  --primary: #2f9fbd;
 
-  /* Ombre douce */
-  --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  /* Accent principal au survol */
+  --primary-hover: #247f98;
+
+  /* Accent doux pour fonds, tags, détails */
+  --primary-soft: #c9e6ed;
+
+  /* Accent crème rappelant le grand titre de la cover */
+  --cream: #f3ead8;
+
+  /* Bordures froides et discrètes */
+  --border: #aebcbc;
+
+  /* Bordure plus marquée pour focus */
+  --focus: #0b6f8a;
+
+  /* Ombres douces, atmosphère brumeuse */
+  --shadow: 0 12px 28px rgba(38, 55, 61, 0.14);
+
+  /* Ombre plus forte pour modale */
+  --shadow-strong: 0 18px 44px rgba(15, 24, 28, 0.32);
 
   /* Arrondis sobres */
-  --radius: 14px;
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  /* Typographies */
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-title: Georgia, "Times New Roman", Times, serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--bg);
+  min-height: 100dvh;
+  font-family: var(--font-body);
   color: var(--text);
+
+  /*
+    Fond inspiré de la cover :
+    brume froide, reliefs gris, atmosphère douce.
+  */
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.75), transparent 34%),
+    linear-gradient(180deg, #dfe9e9 0%, #cbd6d6 42%, #b9c4c4 100%);
 }
+
+/* ===== Layout global ===== */
 
 .app {
   min-height: 100dvh;
@@ -42,35 +85,70 @@ body {
   padding: 16px;
 }
 
+/*
+  Garde le centrage mobile, sans casser les écrans existants.
+  Si .app est bien ton wrapper principal, le body n’a pas besoin
+  d’être en flex.
+*/
 .screen {
   display: none;
   width: 100%;
   max-width: 520px;
+  margin: 0 auto;
+  overflow: visible !important;
 }
 
 .screen--active {
   display: block;
 }
 
+/* ===== Surfaces ===== */
+
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18)),
+    var(--card);
+  border: 1px solid rgba(126, 148, 151, 0.75);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 20px;
   box-shadow: var(--shadow);
+}
+
+/* Petit effet “document d’enquête” discret */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.45), transparent 22%),
+    radial-gradient(circle at top left, rgba(47, 159, 189, 0.12), transparent 34%);
+}
+
+.card > * {
+  position: relative;
 }
 
 .center {
   text-align: center;
 }
 
+/* ===== Typographie ===== */
+
 h1 {
-  margin: 0 0 10px;
-  font-size: 1.25rem;
+  margin: 0 0 12px;
+  font-family: var(--font-title);
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 p {
-  line-height: 1.45;
+  margin-top: 0;
+  line-height: 1.55;
 }
 
 .muted {
@@ -79,52 +157,111 @@ p {
 
 .label {
   display: block;
-  margin: 14px 0 6px;
+  margin: 16px 0 6px;
   color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.input {
+/* ===== Champs ===== */
+
+.input,
+select,
+textarea {
   width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
+  padding: 12px 13px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.78);
   color: var(--text);
+  font: inherit;
   outline: none;
+  position: relative;
+  z-index: 10;
 }
+
+.input::placeholder,
+textarea::placeholder {
+  color: #6b777a;
+}
+
+.input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 4px rgba(47, 159, 189, 0.22);
+  background: #ffffff;
+}
+
+/* ===== Boutons ===== */
 
 .btn {
   width: 100%;
   margin-top: 12px;
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.55);
   color: var(--text);
-  font-weight: 600;
+  font: inherit;
+  font-weight: 700;
   cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: #7f999e;
+  box-shadow: 0 8px 18px rgba(38, 55, 61, 0.14);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(47, 159, 189, 0.28);
 }
 
 .btn--primary {
   background: var(--primary);
-  border-color: transparent;
+  border-color: var(--primary);
+  color: #ffffff;
 }
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* ===== Messages ===== */
 
 .message {
   min-height: 1.2em;
-  margin: 10px 0 0;
+  margin: 12px 0 0;
+  color: var(--muted);
 }
 
-/* Ancien placeholder "LOGO" (si tu ne l'utilises plus, tu peux supprimer ce bloc) */
+/* ===== Logo / placeholder ===== */
+
 .logo {
   width: 100%;
-  height: 88px;
-  border: 1px dashed var(--border);
-  border-radius: 12px;
+  min-height: 96px;
+  border: 1px dashed rgba(79, 91, 95, 0.55);
+  border-radius: var(--radius-sm);
   display: grid;
   place-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--muted);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.08)),
+    rgba(201, 230, 237, 0.24);
 }
 
 /* Textes multi-lignes */
@@ -136,6 +273,7 @@ p {
 }
 
 /* ===== Modal ===== */
+
 .modal {
   display: none;
   position: fixed;
@@ -150,7 +288,9 @@ p {
 .modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background:
+    linear-gradient(180deg, rgba(20, 30, 34, 0.54), rgba(20, 30, 34, 0.68));
+  backdrop-filter: blur(4px);
 }
 
 .modal__card {
@@ -158,14 +298,17 @@ p {
   width: calc(100% - 32px);
   max-width: 520px;
   margin: 18vh auto 0;
-  background: var(--card);
-  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18)),
+    var(--card);
+  border: 1px solid rgba(174, 188, 188, 0.95);
   border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  padding: 20px;
+  box-shadow: var(--shadow-strong);
 }
 
 /* ===== Splash plein écran ===== */
+
 .splash-screen {
   min-height: 100dvh;
   display: flex;
@@ -179,63 +322,69 @@ p {
 
 .splash-logo {
   width: 100%;
-  max-width: 900px; /* ajuste si besoin */
+  max-width: 900px;
   height: auto;
   display: block;
+  filter: drop-shadow(0 16px 32px rgba(24, 39, 45, 0.18));
 }
 
 .splash-text {
-  font-size: 0.95rem;
+  max-width: 34rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--muted);
 }
 
+/* ===== États utilitaires ===== */
 
 [hidden] {
   display: none !important;
 }
 
+/* ===== Fix mobile / dropdown ===== */
 
-/* ===== Fix mobile: centrer le contenu ===== */
-html, body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center; /* centre verticalement si flex-direction: column */
-  align-items: center;     /* centre horizontalement */
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-/* chaque écran prend la largeur dispo, mais reste centré */
-.screen {
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-/* ===== Fix mobile: dropdown/select qui se fait couper ===== */
 .screen,
 .box,
 .card,
-.container {
-  overflow: visible !important;
-}
-
-/* si tu as un wrapper global */
+.container,
 main,
 #app,
 #root {
   overflow: visible !important;
 }
 
-/* petit plus : s'assurer que le select passe au-dessus */
-select,
-.input {
-  position: relative;
-  z-index: 10;
+/* ===== Préférence utilisateur : réduire les animations ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
 }
 
+/* ===== Petits écrans ===== */
 
+@media (max-width: 420px) {
+  .app {
+    padding: 12px;
+  }
+
+  .card,
+  .modal__card {
+    padding: 16px;
+  }
+
+  .modal__card {
+    margin-top: 12vh;
+  }
+
+  .splash-screen {
+    padding: 24px 14px;
+  }
+}
