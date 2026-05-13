@@ -108,27 +108,12 @@ function closeModal() {
   modal.setAttribute("aria-hidden", "true");
 }
 
-// ===== Analytics (Umami + fallback) =====
+// ===== Suivi d'utilisation (Google Sheet uniquement) =====
 function track(eventName, data = {}) {
-  // 1) Logger Google Sheet (mêmes données que Umami)
   logToSheet(eventName, data);
 
-  try {
-    // API fréquente : umami.track(...)
-    if (window.umami && typeof window.umami.track === "function") {
-      window.umami.track(eventName, data);
-      return;
-    }
-    // Variante : umami est une fonction
-    if (typeof window.umami === "function") {
-      window.umami(eventName, data);
-      return;
-    }
-    // Umami bloqué / pas chargé
-    console.log("[track]", eventName, data);
-  } catch (e) {
-    console.warn("[track][error]", eventName, data, e);
-  }
+  // Trace locale utile pendant les tests, sans service externe.
+  console.log("[track]", eventName, data);
 }
 
 // Petit helper : données communes
@@ -302,7 +287,7 @@ function showPostScore() {
       const url = data.redirectUrl;
       if (!url) return;
 
-      // 1) On track le clic (Umami + Google Sheet)
+      // 1) On enregistre le clic dans Google Sheet
       track(
         "outbound_click",
         baseTrackData({
@@ -798,14 +783,4 @@ function initUI() {
     showScreen("screen-code");
   }
 })();
-
-// Debug léger (console) : Umami chargé ?
-setTimeout(() => {
-  const ok =
-    (window.umami && typeof window.umami.track === "function") ||
-    typeof window.umami === "function";
-  console.log("Umami chargé ?", ok, window.umami);
-}, 1500);
-
-
 
