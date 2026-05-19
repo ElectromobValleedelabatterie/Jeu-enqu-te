@@ -73,6 +73,49 @@ function revealMessage(el) {
   el.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+function createAnswerGroup(container, options = [], { name, ariaLabelledBy } = {}) {
+  if (!container) return;
+
+  container.innerHTML = "";
+  container.classList.add("answer-list");
+  container.setAttribute("role", "radiogroup");
+  if (ariaLabelledBy) container.setAttribute("aria-labelledby", ariaLabelledBy);
+
+  options.forEach((option, index) => {
+    const id = `${name || "answer"}-${index}`;
+
+    const label = document.createElement("label");
+    label.className = "answer-option";
+    label.htmlFor = id;
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.id = id;
+    radio.name = name || container.id || "answer";
+    radio.value = option;
+
+    const text = document.createElement("span");
+    text.className = "answer-option__text";
+    text.textContent = option;
+
+    radio.addEventListener("change", () => {
+      container.querySelectorAll(".answer-option").forEach((el) => {
+        const input = el.querySelector('input[type="radio"]');
+        el.classList.toggle("is-selected", Boolean(input?.checked));
+      });
+    });
+
+    label.appendChild(radio);
+    label.appendChild(text);
+    container.appendChild(label);
+  });
+}
+
+function getAnswerValue(containerId) {
+  const checked = document.querySelector(`#${containerId} input[type="radio"]:checked`);
+  return checked ? checked.value : "";
+}
+
 // ===== Modal helpers =====
 function openModal({ title = "Bravo !", text = "", button = "Continuer", onContinue }) {
   const modal = document.getElementById("modal");
@@ -312,14 +355,9 @@ function initRiddle1() {
   document.getElementById("r1Title").textContent = r1.title || "Énigme 1";
   document.getElementById("r1Question").textContent = r1.question || "";
 
-  const select = document.getElementById("r1Select");
-  select.querySelectorAll("option:not(:first-child)").forEach((o) => o.remove());
-
-  (r1.options || []).forEach((opt) => {
-    const o = document.createElement("option");
-    o.value = opt;
-    o.textContent = opt;
-    select.appendChild(o);
+  createAnswerGroup(document.getElementById("r1Answers"), r1.options || [], {
+    name: "r1Answer",
+    ariaLabelledBy: "r1AnswersLabel",
   });
 
   const msg = document.getElementById("r1Message");
@@ -328,7 +366,7 @@ function initRiddle1() {
   if (msg) msg.textContent = "";
 
   document.getElementById("btnR1Validate").onclick = () => {
-    const answer = select.value;
+    const answer = getAnswerValue("r1Answers");
 
     if (!answer) {
       msg.textContent = "Choisissez une option.";
@@ -396,23 +434,16 @@ function initRiddle2() {
     label.textContent = q.label || `Question ${i + 1}`;
     block.appendChild(label);
 
-    const select = document.createElement("select");
-    select.className = "input";
-    select.id = `r2Select${i}`;
+    label.id = `r2QuestionLabel${i}`;
 
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = "— Choisir —";
-    select.appendChild(placeholder);
-
-    (q.options || []).forEach((opt) => {
-      const o = document.createElement("option");
-      o.value = opt;
-      o.textContent = opt;
-      select.appendChild(o);
+    const answers = document.createElement("div");
+    answers.id = `r2Answers${i}`;
+    createAnswerGroup(answers, q.options || [], {
+      name: `r2Answer${i}`,
+      ariaLabelledBy: label.id,
     });
 
-    block.appendChild(select);
+    block.appendChild(answers);
 
     const hintBtn = document.createElement("button");
     hintBtn.className = "btn";
@@ -448,8 +479,7 @@ function initRiddle2() {
 
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
-      const select = document.getElementById(`r2Select${i}`);
-      const answer = select ? select.value : "";
+      const answer = getAnswerValue(`r2Answers${i}`);
       if (answer && answer === q.correct) correctCount += 1;
     }
 
@@ -514,23 +544,16 @@ function initRiddle3() {
     label.textContent = q.label || `Item ${i + 1}`;
     block.appendChild(label);
 
-    const select = document.createElement("select");
-    select.className = "input";
-    select.id = `r3Select${i}`;
+    label.id = `r3QuestionLabel${i}`;
 
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = "— Choisir —";
-    select.appendChild(placeholder);
-
-    (q.options || []).forEach((opt) => {
-      const o = document.createElement("option");
-      o.value = opt;
-      o.textContent = opt;
-      select.appendChild(o);
+    const answers = document.createElement("div");
+    answers.id = `r3Answers${i}`;
+    createAnswerGroup(answers, q.options || [], {
+      name: `r3Answer${i}`,
+      ariaLabelledBy: label.id,
     });
 
-    block.appendChild(select);
+    block.appendChild(answers);
     container.appendChild(block);
   });
 
@@ -540,8 +563,7 @@ function initRiddle3() {
 
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
-      const select = document.getElementById(`r3Select${i}`);
-      const answer = select ? select.value : "";
+      const answer = getAnswerValue(`r3Answers${i}`);
       if (answer && answer === q.correct) correctCount += 1;
     }
 
@@ -591,14 +613,9 @@ function initRiddle4() {
   document.getElementById("r4Title").textContent = r4.title || "Énigme 4";
   document.getElementById("r4Question").textContent = r4.question || "";
 
-  const select = document.getElementById("r4Select");
-  select.querySelectorAll("option:not(:first-child)").forEach((o) => o.remove());
-
-  (r4.options || []).forEach((opt) => {
-    const o = document.createElement("option");
-    o.value = opt;
-    o.textContent = opt;
-    select.appendChild(o);
+  createAnswerGroup(document.getElementById("r4Answers"), r4.options || [], {
+    name: "r4Answer",
+    ariaLabelledBy: "r4AnswersLabel",
   });
 
   const msg = document.getElementById("r4Message");
@@ -607,7 +624,7 @@ function initRiddle4() {
   msg.textContent = "";
 
   document.getElementById("btnR4Validate").onclick = () => {
-    const answer = select.value;
+    const answer = getAnswerValue("r4Answers");
 
     if (!answer) {
       msg.textContent = "Choisissez une option.";
@@ -654,14 +671,9 @@ function initRiddle5() {
   document.getElementById("r5Title").textContent = r5.title || "Énigme 5";
   document.getElementById("r5Question").textContent = r5.question || "";
 
-  const select = document.getElementById("r5Select");
-  select.querySelectorAll("option:not(:first-child)").forEach((o) => o.remove());
-
-  (r5.options || []).forEach((opt) => {
-    const o = document.createElement("option");
-    o.value = opt;
-    o.textContent = opt;
-    select.appendChild(o);
+  createAnswerGroup(document.getElementById("r5Answers"), r5.options || [], {
+    name: "r5Answer",
+    ariaLabelledBy: "r5AnswersLabel",
   });
 
   const msg = document.getElementById("r5Message");
@@ -670,7 +682,7 @@ function initRiddle5() {
   msg.textContent = "";
 
   document.getElementById("btnR5Validate").onclick = () => {
-    const answer = select.value;
+    const answer = getAnswerValue("r5Answers");
 
     if (!answer) {
       msg.textContent = "Choisissez une option.";
