@@ -92,7 +92,7 @@
   "id": 4,
   "type": "single",
   "title": "Enveloppe 3, question 2/3",
-  "question": "Qui a passé la nuit avec Jeanne Boudy à l'Espérance hotel\u202F?",
+  "question": "Qui a passé une partie de la nuit avec Jeanne Boudy à l'Espérance hotel\u202F?",
   "options": ["Carla Darroise", "Chloé Millen", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
   "correct": "Chloé Millen",
   "successText": "Bravo ! l'enquête est sur le point d'être résolue ",
