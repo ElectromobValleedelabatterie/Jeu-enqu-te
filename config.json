@@ -104,7 +104,7 @@
   "id": 5,
   "type": "single",
   "title": "Qui a empoisonné Carla\u202F?",
-  "question": "Vous pouvez maintenant reconstituer l'emploi du temps de tout le monde et découvrir qui a empoisonné Carla.",
+  "question": "Vous pouvez maintenant savoir ce que chaque personne faisait à l’heure du vol et découvrir qui a empoisonné Carla.",
   "options": ["Chloé Millen", "Hakim Nasr", "Jeanne Boudy", "Matheo Vompere", "Nicolas Derto", "Pierre Abad"],
   "correct": "Pierre Abad",
   "successText": "Bravo !!! Découvrez les derniers éléments de l'enquête obtenus garce à votre travail",
